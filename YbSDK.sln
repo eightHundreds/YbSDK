@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YbSDK", "YbSDK\YbSDK.csproj", "{5FC97ABD-8313-4191-838A-8E75E9372DBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YbSDKTests", "YbSDKTests\YbSDKTests.csproj", "{49ED8B21-74CD-455E-9E27-4A4C2B08C28C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FC97ABD-8313-4191-838A-8E75E9372DBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FC97ABD-8313-4191-838A-8E75E9372DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FC97ABD-8313-4191-838A-8E75E9372DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FC97ABD-8313-4191-838A-8E75E9372DBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49ED8B21-74CD-455E-9E27-4A4C2B08C28C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49ED8B21-74CD-455E-9E27-4A4C2B08C28C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49ED8B21-74CD-455E-9E27-4A4C2B08C28C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49ED8B21-74CD-455E-9E27-4A4C2B08C28C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
