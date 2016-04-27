@@ -1,4 +1,5 @@
-﻿using YbSDK.Exceptions;
+﻿using YbSDK.Config;
+using YbSDK.Exceptions;
 using YbSDK.Model;
 
 namespace YbSDK.Api
@@ -12,24 +13,16 @@ namespace YbSDK.Api
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="token">accesstoken</param>
-        public SchoolApi(AccessToken token) : base(token)
-        {
-        }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="token">accesstoken</param>
-        public SchoolApi(string token) : base(token)
-        {
-        }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
         /// <param name="context">易班Api上下文</param>
         public SchoolApi(ApiContext context) : base(context)
+        {
+        }
+
+        public SchoolApi(string token, YbConfig config) : base(token, config)
+        {
+        }
+
+        public SchoolApi(AccessToken token, YbConfig config) : base(token, config)
         {
         }
 

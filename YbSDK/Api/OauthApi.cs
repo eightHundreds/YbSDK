@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using YbSDK.Config;
 using YbSDK.Model;
 
 namespace YbSDK.Api
@@ -20,35 +21,18 @@ namespace YbSDK.Api
         /// <summary>
         /// 构造函数
         /// </summary>
-        public OauthApi() : base("")
-        {
-            context.Token = null;
-        }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
         /// <param name="context">易班上下文</param>
         public OauthApi(ApiContext context) : base(context)
         {
         }
 
-
-        #region 没什么卵用的构造函数
-
         /// <summary>
         /// 构造函数
         /// </summary>
-        protected OauthApi(AccessToken token) : base(token)
+        /// <param name="config">配置</param>
+        public OauthApi(YbConfig config):base("",config)
         {
         }
-
-        protected OauthApi(string token) : base(token)
-        {
-        }
-        #endregion
-
-
         #endregion 构造函数
 
         /// <summary>

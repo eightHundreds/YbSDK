@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YbSDK.Config;
 using YbSDK.Model;
+
 
 namespace YbSDK.Api
 {
@@ -21,10 +23,6 @@ namespace YbSDK.Api
         {
             get
             {
-                if (_config == null)
-                {
-                    _config = new YbConfig();
-                }
                 return _config;
             }
         }
@@ -45,16 +43,14 @@ namespace YbSDK.Api
         }
        
         #region 构造函数
-        public ApiContext(AccessToken token)
-        {
-            this.token = token;
-        }
-        public ApiContext(string token)
+        public ApiContext(string token, YbConfig config)
         {
             this.token = new AccessToken() { access_token = token, expires = 0, userid =0 };
+            _config = config;
         }
-        public ApiContext(AccessToken token,YbConfig config):this(token)
+        public ApiContext(AccessToken token,YbConfig config)
         {
+            this.token = token;
             _config = config;
         }
         #endregion

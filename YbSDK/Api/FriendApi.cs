@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YbSDK.Config;
 using YbSDK.Exceptions;
 using YbSDK.Model;
 
@@ -16,23 +17,16 @@ namespace YbSDK.Api
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="token">accesstoken</param>
-        public FriendApi(AccessToken token) : base(token)
-        {
-        }
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="token">accesstoken</param>
-        public FriendApi(string token) : base(token)
+        /// <param name="context">易班Api上下文</param>
+        public FriendApi(ApiContext context) : base(context)
         {
         }
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="context">易班Api上下文</param>
-        public FriendApi(ApiContext context) : base(context)
+        public FriendApi(string token, YbConfig config) : base(token, config)
+        {
+        }
+
+        public FriendApi(AccessToken token, YbConfig config) : base(token, config)
         {
         }
         #endregion

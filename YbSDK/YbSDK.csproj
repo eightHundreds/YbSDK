@@ -56,6 +56,7 @@
     <Compile Include="Api\SchoolApi.cs" />
     <Compile Include="Api\ShareApi.cs" />
     <Compile Include="Api\UserApi.cs" />
+    <Compile Include="Config\YbConfig.cs" />
     <Compile Include="Exceptions\YbException.cs" />
     <Compile Include="Model\ErrorModels.cs" />
     <Compile Include="Model\FriendModels.cs" />
@@ -66,7 +67,6 @@
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="YbClient.cs" />
-    <Compile Include="YbConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,4 +1,5 @@
-﻿using YbSDK.Model;
+﻿using YbSDK.Config;
+using YbSDK.Model;
 
 namespace YbSDK.Api
 {
@@ -11,22 +12,16 @@ namespace YbSDK.Api
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="token">accesstoken</param>
-        public PayApi(AccessToken token) : base(token)
-        {
-        }
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="token">accesstoken</param>
-        public PayApi(string token) : base(token)
-        {
-        }
-        /// <summary>
-        /// 构造函数
-        /// </summary>
         /// <param name="context">易班Api上下文</param>
         public PayApi(ApiContext context) : base(context)
+        {
+        }
+
+        public PayApi(AccessToken token, YbConfig config) : base(token, config)
+        {
+        }
+
+        public PayApi(string token, YbConfig config) : base(token, config)
         {
         }
         #endregion

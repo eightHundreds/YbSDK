@@ -14,17 +14,38 @@ IIS要求多少?我也不知道,有装.Net 4.0的应该都能用
 ```
 <configuration>
   <configSections>
-    <section name="YbConnect" type="System.Configuration.NameValueSectionHandler,System, Version=4.0.0.0, Culture=neutral,PublicKeyToken=b77a5c561934e089"/>
+    <sectionGroup name="YbApp">
+      <section name="YbWebConnect" type="System.Configuration.NameValueSectionHandler,System, Version=4.0.0.0, Culture=neutral,PublicKeyToken=b77a5c561934e089"/>
+      <section name="YbLight" type="System.Configuration.NameValueSectionHandler,System, Version=4.0.0.0, Culture=neutral,PublicKeyToken=b77a5c561934e089"/>
+      <section name="YbInSite" type="System.Configuration.NameValueSectionHandler,System, Version=4.0.0.0, Culture=neutral,PublicKeyToken=b77a5c561934e089"/>
+    </sectionGroup>
   </configSections>
 
-  <YbConnect>
-    <add key="AppId" value="AppId"/>
-    <add key="Callback" value="回调地址"/><!-- 网站接入时由用 -->
-    <add key="Type" value="应用类型可填web,mobile,html"/>
-    <add key="AppSecret" value="AppSecret"/>
-  </YbConnect>
+  <YbApp>
+    <YbWebConnect>
+      <add key="AppId" value=""/>
+      <add key="Callback" value=""/>
+      <add key="Type" value="web"/>
+      <add key="AppSecret" value=""/>
+    </YbWebConnect>
+    <YbLight>
+      <add key="AppId" value=""/>
+      <add key="Callback" value=""/>
+      <add key="AppSecret" value=""/>
+    </YbLight>
+    <YbInSite>
+      <add key="AppId" value=""/>
+      <add key="AppSecret" value=""/>
+    </YbInSite>
+  </YbApp>
 </configuration>
 ```
+易班应用分为3中,网站接入,站内应用,轻应用.
+有时候会出现这种情况:同一个网站在易班开放平台申请多种模式的应用,比如我想要我的网站能在易班app客户端使用,也可以在浏览器中进行第三方登入,我就可以申请我的应用为网站接入和轻应用
+
+
+从配置中可以看出,该SDK可以配置多种模式的易班应用
+
 
 #易班API
 
@@ -54,11 +75,11 @@ IIS要求多少?我也不知道,有装.Net 4.0的应该都能用
 
 
 
-在YbClient中封装了各个Api,除了OauthApi其他都可被外部调用
+在YbClient中封装了各个Api,除了OauthApi
 ```
 public class YbClient
 {
-    private static OauthApi Oauther = new OauthApi();
+   
 
     #region Apis
     public ShareApi share { get; set; }
@@ -72,18 +93,7 @@ public class YbClient
     #endregion
 
 ```
-YbClient以静态方法的形式暴露OauthApi的功能,比如
-```
- /// <summary>
- /// 获得Access_Token
- /// </summary>
- /// <param name="code"></param>
- /// <returns></returns>
- public static AccessToken GetAccessToken(string code)
- {
-     return Oauther.GetAccessToken(code);
- }
-```
+
 
 各个api调用后的返回结果都与<font color='red' >**官方文档一摸一样**</font>
 
@@ -93,6 +103,7 @@ YbClient以静态方法的形式暴露OauthApi的功能,比如
 
 
 ```
+
 //假设在点击页面某个链接后跳转到这个方法中
 protected void Page_Load(object sender, EventArgs e)
 {
@@ -101,8 +112,13 @@ protected void Page_Load(object sender, EventArgs e)
    //保存到Session
    context.Session["state"]
    
+   //创建网站接入配置对象
+   YbConfig ybConfig = new YbConfig(ConfigType.YbWebConnect);
+   //实例化授权接口
+   OauthApi ybOauth = new OauthApi(ybConfig);
+   
    //生成易班授权页面链接
-   string url = YbClient.GetAuthorizeUrl(state);
+   string url = ybOauth.GetAuthorizeUrl(state);
    //跳转
    Response.Redirect(url);
 }
@@ -112,11 +128,15 @@ protected void Page_Load(object sender, EventArgs e)
 {
    string code = Request["code"];
    string state = Request["state"];
+   
+   YbConfig ybConfig = new YbConfig(ConfigType.YbWebConnect);
+   OauthApi ybOauth = new OauthApi(ybConfig);
+   
    if(state==context.Session["state"].ToString())
    {
-     var accessToken=YbClient.GetAccessToken(code);
-     //使用获得的accessToken实例化YbClient
-     YbClient client=new YbClient(accessToken);
+     var accessToken=ybOauth.GetAccessToken(code);
+     //使用获得的accessToken实例化YbClient,同时也要传入易班配置
+     YbClient client=new YbClient(accessToken,ybConfig);
      //实例化后就直接api成员使用了
      UserMe me = client.user.GetMe();
    } 
@@ -150,7 +170,10 @@ protected void Page_Load(object sender, EventArgs e)
 {
   //获取加密的授权校验码
   string verify = Request["verify_request"];
-  VisitOauth oauth=YbClient.CheckAuthor(verify);
+  
+  YbConfig ybConfig =new YbConfig(ConfigType.YbLight);
+  OauthApi ybOauth = new OauthApi(ybConfig);
+  VisitOauth oauth=ybOauth.CheckAuthor(verify);
   
   if(oauth.IsAuthorized==true){
      //该用户以授权该应用
@@ -191,9 +214,12 @@ YbSDK
    |- SchoolModels.cs   校级
    |- ShareModels.cs    分享
    |- UserModel.cs      用户
-   
+
+|- Config
+   |- YbConfig 易班配置类,会自动从配置文件中读取相关配置
+ 
 |- YbClient 封装各个api,方便使用
-|- YbConfig 易班配置类,会自动从配置文件中读取相关配置
+
 
 ```
 

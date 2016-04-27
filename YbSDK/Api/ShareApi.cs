@@ -1,4 +1,5 @@
-﻿using YbSDK.Exceptions;
+﻿using YbSDK.Config;
+using YbSDK.Exceptions;
 using YbSDK.Model;
 
 namespace YbSDK.Api
@@ -10,27 +11,21 @@ namespace YbSDK.Api
     {
         #region 构造函数
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="token"></param>
-        public ShareApi(AccessToken token) : base(token)
-        {
-        }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="token"></param>
-        public ShareApi(string token) : base(token)
-        {
-        }
+      
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="context">易班Api上下文</param>
         public ShareApi(ApiContext context) : base(context)
+        {
+        }
+
+        public ShareApi(string token, YbConfig config) : base(token, config)
+        {
+        }
+
+        public ShareApi(AccessToken token, YbConfig config) : base(token, config)
         {
         }
 

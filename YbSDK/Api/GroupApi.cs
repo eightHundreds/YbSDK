@@ -1,4 +1,5 @@
 ﻿using RestSharp;
+using YbSDK.Config;
 using YbSDK.Exceptions;
 using YbSDK.Model;
 
@@ -11,27 +12,21 @@ namespace YbSDK.Api
     {
         #region 构造函数
 
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="token">accesstoken</param>
-        public GroupApi(AccessToken token) : base(token)
-        {
-        }
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="token">accesstoken</param>
-        public GroupApi(string token) : base(token)
-        {
-        }
+     
 
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="context">易班Api上下文</param>
         public GroupApi(ApiContext context) : base(context)
+        {
+        }
+
+        public GroupApi(string token, YbConfig config) : base(token, config)
+        {
+        }
+
+        public GroupApi(AccessToken token, YbConfig config) : base(token, config)
         {
         }
 

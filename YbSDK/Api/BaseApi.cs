@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using YbSDK.Config;
 using YbSDK.Exceptions;
 using YbSDK.Model;
 
@@ -21,16 +22,16 @@ namespace YbSDK.Api
         protected IRestClient restClient = new RestClient("https://openapi.yiban.cn");
         private System.Web.Script.Serialization.JavaScriptSerializer jss = new System.Web.Script.Serialization.JavaScriptSerializer();
 
-        #region 构造函数,抽象类的构造函数,子类必须实现
-        protected BaseApi(string token)
+        #region 构造函数,抽象类的构造函数,子类实现
+        public BaseApi(string token,YbConfig config)
         {
-            this.context = new ApiContext(token);
+            this.context = new ApiContext(token, config);
         }
-        protected BaseApi(AccessToken token)
+        public BaseApi(AccessToken token, YbConfig config)
         {
-            this.context = new ApiContext(token);
+            this.context = new ApiContext(token, config);
         }
-        protected BaseApi(ApiContext context)
+        public BaseApi(ApiContext context)
         {
             this.context = context;
         }
