@@ -43,9 +43,9 @@ namespace YbSDK.Api
                 throw new YbException("信息内容过长");
             }
             RestRequest request = CreateRequest(Method.POST, "msg/letter");
-            request.AddParameter("access_token", context.Token.access_token, ParameterType.QueryString);
-            request.AddParameter("to_yb_uid", to_yb_uid, ParameterType.QueryString);
-            request.AddParameter("content", content, ParameterType.QueryString);
+            request.AddParameter("access_token", context.Token.access_token);
+            request.AddParameter("to_yb_uid", to_yb_uid);
+            request.AddParameter("content", content);
 
             var response = restClient.Execute(request);
 

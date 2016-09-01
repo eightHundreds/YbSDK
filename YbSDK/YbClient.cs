@@ -117,15 +117,8 @@ namespace YbSDK
         //}
 
         #endregion 授权静态方法
+        
 
-        ///// <summary>
-        ///// 可以修改静态成员oauth的配置
-        ///// 当不想用配置文件中的配置时可通过这种方式更改配置
-        ///// </summary>
-        ///// <param name="context">易班上下文</param>
-        //public static void SetContext(ApiContext context)
-        //{
-        //    Oauther = new OauthApi(context);
-        //}
+
     }
 }

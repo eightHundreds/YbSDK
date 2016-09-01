@@ -15,7 +15,7 @@ namespace YbSDK.Api.Tests
         [TestInitialize]
         public void Init()
         {
-            api = new GroupApi(GlobalConfig.accessToken);
+            api = new GroupApi(GlobalConfig.accessToken, GlobalConfig.Webconfig);
         }
         [TestMethod()]
         public void GetOrganGroupsTest()
@@ -64,12 +64,17 @@ namespace YbSDK.Api.Tests
         public void GetGroupMembersTest()
         {
             var result = api.GetGroupMembers(GlobalConfig.groupId);
-            foreach (var item in result.info.list)
+            if (result.info.list!=null)
             {
-                Debug.WriteLine(item.member_nick);
+                foreach (var item in result.info.list)
+                {
+                    Debug.WriteLine(item.member_nick);
+                }
             }
-
-            Assert.IsNotNull(result.info.list);
+            else
+            {
+                Assert.IsNull(result.info.list);
+            }
             Assert.AreEqual("success", result.status);
         }
 
@@ -112,11 +117,17 @@ namespace YbSDK.Api.Tests
         {
             var result = api.GetTopicComment(GlobalConfig.groupId, GlobalConfig.groupTopicId);
             //Debug.WriteLine(result.info.list)
-            foreach (var item in result.info.list)
+            if (result.info.list!=null)
             {
-                Debug.WriteLine(item.comment_content+"  "+item.comment_id);
+                foreach (var item in result.info.list)
+                {
+                    Debug.WriteLine(item.comment_content + "  " + item.comment_id);
+                }
             }
-            Assert.IsNotNull(result.info);
+            else
+            {
+                Assert.IsNotNull(result.info);
+            }
             Assert.AreEqual("success", result.status);
             //Assert.Fail();
         }

@@ -115,9 +115,9 @@ namespace YbSDK.Api
                 throw new YbException("	评论不可超过500字");
             }
             var request = CreateRequest(RestSharp.Method.POST, "share/send_comment");
-            request.AddParameter("access_token", context.Token.access_token, RestSharp.ParameterType.QueryString);
-            request.AddParameter("feeds_id", feedId, RestSharp.ParameterType.QueryString);
-            request.AddParameter("content", content, RestSharp.ParameterType.QueryString);
+            request.AddParameter("access_token", context.Token.access_token);
+            request.AddParameter("feeds_id", feedId);
+            request.AddParameter("content", content);
 
             var response = restClient.Execute(request);
             if (CheckError(response))

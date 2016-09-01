@@ -15,7 +15,7 @@ namespace YbSDK.Api.Tests
         [TestInitialize]
         public void Init()
         {
-            api = new FriendApi(GlobalConfig.accessToken);
+            api = new FriendApi(GlobalConfig.accessToken,GlobalConfig.Webconfig);
         }
         [TestMethod()]
         public void GetMyFriendsTest()

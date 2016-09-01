@@ -13,7 +13,7 @@ namespace YbSDK.Api.Tests
         [TestInitialize]
         public void Init()
         {
-            api = new OauthApi();
+            api = new OauthApi(GlobalConfig.Webconfig);
         }
 
         [TestMethod()]
@@ -21,7 +21,6 @@ namespace YbSDK.Api.Tests
         {
 
             string url = api.GetAuthorizeUrl("1");
-            //Assert.Fail();
             Assert.AreEqual("https://openapi.yiban.cn/oauth/authorize?client_id=198cf948b42d692f&redirect_uri=http://online.cumt.edu.cn/irides/oauth/yiban&display=web&state=1", url);
         }
 
@@ -29,31 +28,20 @@ namespace YbSDK.Api.Tests
         public void GetAccessTokenTest()
         {
             var result = api.GetAccessToken(GlobalConfig.code);
-            Assert.IsNotNull(result.expires);
-            //Assert.AreEqual("", result.access_token);
-            //Assert.Fail();
-        }
-
-        [ExpectedException(typeof(YbException))]
-        [TestMethod]
-        public void GetAccessTokenErrorTest()
-        {
-            var result = api.GetAccessToken(GlobalConfig.accessToken);
+            Console.WriteLine(result.access_token);
             Assert.IsNotNull(result.expires);
         }
 
-        [TestMethod()]
-        public void GetTokenInfoTest()
-        {
-            //var result = api.GetAccessToken("9a5ccdc30e013d689b6c86eb37a6dade0fec008");
-            var result = api.GetAccessToken(GlobalConfig.code);
-            Assert.IsNotNull(result.access_token);
-        }
 
         [TestMethod()]
         public void CheckAuthorTest()
         {
+            OauthApi api = new OauthApi(GlobalConfig.LightConfig);
             var result = api.CheckAuthor(GlobalConfig.verify_request);
+            Console.WriteLine(result.IsAuthorized) ;
+            Console.WriteLine(result.visit_oauth);
+            Console.WriteLine(result.visit_time);
+            Console.WriteLine(result.visit_user);
             Assert.AreEqual(true, result.IsAuthorized);
         }
 

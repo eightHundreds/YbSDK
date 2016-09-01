@@ -52,7 +52,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Api\FriendApiTests.cs" />
-    <Compile Include="Api\GlobalConfig.cs" />
+    <Compile Include="GlobalConfig.cs" />
     <Compile Include="Api\GroupApiTests.cs" />
     <Compile Include="Api\MsgApiTests.cs" />
     <Compile Include="Api\OauthApiTests.cs" />

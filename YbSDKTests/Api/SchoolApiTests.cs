@@ -14,7 +14,7 @@ namespace YbSDK.Api.Tests
         [TestInitialize]
         public void Init()
         {
-            api = new SchoolApi(GlobalConfig.accessToken);
+            api = new SchoolApi(GlobalConfig.accessToken, GlobalConfig.Webconfig);
         }
 
         //权限不足无法测试

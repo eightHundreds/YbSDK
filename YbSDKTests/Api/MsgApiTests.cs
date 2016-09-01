@@ -13,8 +13,8 @@ namespace YbSDK.Api.Tests
         [TestInitialize]
         public void Init()
         {
-            api = new MsgApi(GlobalConfig.accessToken);
-            userApi = new UserApi(GlobalConfig.accessToken);
+            api = new MsgApi(GlobalConfig.accessToken, GlobalConfig.Webconfig);
+            userApi = new UserApi(GlobalConfig.accessToken, GlobalConfig.Webconfig);
         }
         public MsgApi api { get; set; }
         public UserApi userApi { get; set; }

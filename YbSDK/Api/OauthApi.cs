@@ -1,9 +1,11 @@
 ﻿using RestSharp;
 using System;
 using System.IO;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using YbSDK.Config;
+using YbSDK.Exceptions;
 using YbSDK.Model;
 
 namespace YbSDK.Api
@@ -30,7 +32,7 @@ namespace YbSDK.Api
         /// 构造函数
         /// </summary>
         /// <param name="config">配置</param>
-        public OauthApi(YbConfig config):base("",config)
+        public OauthApi(YbConfig config) : base("", config)
         {
         }
         #endregion 构造函数
@@ -44,20 +46,23 @@ namespace YbSDK.Api
         {
             RestRequest request = CreateRequest(Method.POST, "oauth/access_token");
             //添加参数
-            request.AddParameter("client_id", context.Config.AppId, ParameterType.QueryString);
-            request.AddParameter("client_secret", context.Config.AppSecret, ParameterType.QueryString);
-            request.AddParameter("code", code, ParameterType.QueryString);
-            request.AddParameter("redirect_uri", context.Config.Callback, ParameterType.QueryString);
+            request.AddParameter("client_id", context.Config.AppId);
+            request.AddParameter("client_secret", context.Config.AppSecret);
+            request.AddParameter("code", code);
+            request.AddParameter("redirect_uri", context.Config.Callback);
 
             //获得response
             IRestResponse response = null;
+#if DEBUG
+            restClient.Proxy = new WebProxy("http://127.0.0.1:8888");
+#endif
             response = restClient.Execute(request);
             var result = Deserialize<AccessToken>(response.Content);
 
             //如果没有access_token就代表返回了错误
             if (result.access_token == null)
             {
-                throw base.GenerateError(response);
+                throw GenerateOAuthError(response);
             }
             return result;
         }
@@ -95,15 +100,15 @@ namespace YbSDK.Api
         public TokenInfo GetTokenInfo(string accessToken = "", string ybUid = "")
         {
             RestRequest request = CreateRequest(Method.POST, "oauth/token_info");
-            request.AddParameter("client_id", context.Config.AppId, ParameterType.QueryString);
+            request.AddParameter("client_id", context.Config.AppId);
             //添加参数
             if (!String.IsNullOrWhiteSpace(accessToken))
             {
-                request.AddParameter("access_token", accessToken, ParameterType.QueryString);
+                request.AddParameter("access_token", accessToken);
             }
             if (!String.IsNullOrWhiteSpace(ybUid))
             {
-                request.AddParameter("yb_uid", ybUid, ParameterType.QueryString);
+                request.AddParameter("yb_uid", ybUid);
             }
             //获得response
             IRestResponse response = null;
@@ -126,8 +131,8 @@ namespace YbSDK.Api
         public bool RevokeToken(string token)
         {
             RestRequest request = CreateRequest(Method.POST, "oauth/revoke_token");
-            request.AddParameter("client_id", context.Config.AppId, ParameterType.QueryString);
-            request.AddParameter("access_token", token, ParameterType.QueryString);
+            request.AddParameter("client_id", context.Config.AppId);
+            request.AddParameter("access_token", token);
 
             //获得response
             IRestResponse response = null;
@@ -153,8 +158,8 @@ namespace YbSDK.Api
             else
             {
                 //我操,解密生成的数据后竟然跟一堆的\0导致反序列失败,找了n个小时才发现
-                decryptStr = decryptStr.Substring(0,decryptStr.LastIndexOf('}')+1);
-                result= Deserialize<VisitOauth>(decryptStr);
+                decryptStr = decryptStr.Substring(0, decryptStr.LastIndexOf('}') + 1);
+                result = Deserialize<VisitOauth>(decryptStr);
                 result.IsAuthorized = true;
             }
             return result;
@@ -199,6 +204,17 @@ namespace YbSDK.Api
             }
             aes.Clear();
             return decrypt;
+        }
+
+        /// <summary>
+        /// 生成授权时的响应异常
+        /// </summary>
+        /// <param name="response">请求响应类</param>
+        private YbException GenerateOAuthError(IRestResponse response)
+        {
+            ErrorInfo errorInfo = new ErrorInfo();
+            errorInfo.info = Deserialize<Error>(response.Content);
+            return new YbException(errorInfo, string.Format("MsgFromYiBan:{0},ErrorCode:{1}", errorInfo.info.msgCN, errorInfo.info.code));
         }
     }
 }

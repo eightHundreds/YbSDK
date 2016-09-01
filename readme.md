@@ -1,17 +1,17 @@
 [TOC]
 
-#前言
+# 前言
 该SDK要求.Net 4.0以上
 依赖第三方库:RestSharp, Version=105.2.3.0
 IIS要求多少?我也不知道,有装.Net 4.0的应该都能用
 
 
 
-#配置
+# 配置
 
 先在app.config和web.config中的`configuration`节点中添加section如下
 
-```
+``` XML
 <configuration>
   <configSections>
     <sectionGroup name="YbApp">
@@ -47,7 +47,7 @@ IIS要求多少?我也不知道,有装.Net 4.0的应该都能用
 从配置中可以看出,该SDK可以配置多种模式的易班应用
 
 
-#易班API
+# 易班API
 
 本SDK实现了下列接口
 - 授权接口
@@ -76,7 +76,8 @@ IIS要求多少?我也不知道,有装.Net 4.0的应该都能用
 
 
 在YbClient中封装了各个Api,除了OauthApi
-```
+
+``` CSharp
 public class YbClient
 {
    
@@ -99,10 +100,10 @@ public class YbClient
 
 
 
-#接入网站授权案例
+# 接入网站授权案例
 
 
-```
+``` CSharp
 
 //假设在点击页面某个链接后跳转到这个方法中
 protected void Page_Load(object sender, EventArgs e)
@@ -161,9 +162,9 @@ public class AccessToken
 ```
 
 
-#轻应用,站内应用授权案例
+# 轻应用,站内应用授权案例
 
-```
+``` CSharp
 
 //假设打开易班轻/站内应用会自动跳转页面并执行这个方法
 protected void Page_Load(object sender, EventArgs e)
@@ -187,7 +188,7 @@ protected void Page_Load(object sender, EventArgs e)
 
 
 
-#项目目录结构
+# 项目目录结构
 
 ```
 YbSDK
@@ -223,13 +224,13 @@ YbSDK
 
 ```
 
-#关于代码
+# 关于代码
 
 
 `易班不知如何称呼的开发者`建议要添加`关键位置行间注释`
 此SDK跟本没有复杂的设计,所以基本上看懂一个api的方法就能看懂全部的方法
 下面就拿一个最复杂的方法举例.该方法是GroupApi中的GetGroupMembers
-```
+``` CSharp
 /// <summary>
 /// 获取指定机构群/公共群成员列表
 /// </summary>
@@ -317,7 +318,7 @@ group/group_member接口返回的是上面这种json,当list为空的时候返�
 
 
 
-#后记
+# 后记
 
 本SDK由 中国矿业大学<font color='#5BCE33'>学生在线</font>后端组八百 设计开发.
 哪里用的不舒服欢迎来校门口堵我.

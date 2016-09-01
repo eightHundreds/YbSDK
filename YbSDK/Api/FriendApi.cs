@@ -144,9 +144,9 @@ namespace YbSDK.Api
                 throw new YbException("申请理由最多50字数");
             }
             var request = CreateRequest(RestSharp.Method.POST, "friend/apply");
-            request.AddParameter("access_token", context.Token.access_token, RestSharp.ParameterType.QueryString);
-            request.AddParameter("to_yb_uid", uId, RestSharp.ParameterType.QueryString);
-            request.AddParameter("content", content, RestSharp.ParameterType.QueryString);
+            request.AddParameter("access_token", context.Token.access_token);
+            request.AddParameter("to_yb_uid", uId);
+            request.AddParameter("content", content);
             var response = restClient.Execute(request);
 
             if (CheckError(response))
@@ -164,8 +164,8 @@ namespace YbSDK.Api
         public bool RemoveFriend(int friendUId)
         {
             var request = CreateRequest(RestSharp.Method.POST, "friend/apply");
-            request.AddParameter("access_token", context.Token.access_token, RestSharp.ParameterType.QueryString);
-            request.AddParameter("yb_friend_uid", friendUId, RestSharp.ParameterType.QueryString);
+            request.AddParameter("access_token", context.Token.access_token);
+            request.AddParameter("yb_friend_uid", friendUId);
             var response = restClient.Execute(request);
 
             if (CheckError(response))

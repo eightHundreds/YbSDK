@@ -9,7 +9,7 @@ namespace YbSDK.Exceptions
     {
         #region 自定义构造函数
 
-        public YbException(ErrorInfo error, string message = "") 
+        public YbException(ErrorInfo error, string message = ""):base(message)
         {
             YbError = error;
             Response = null;

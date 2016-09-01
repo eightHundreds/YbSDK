@@ -321,10 +321,10 @@ namespace YbSDK.Api
                 throw new YbException("话题内容最多10000字数");
             }
             var request = CreateRequest(RestSharp.Method.POST, "group/send_topic");
-            request.AddParameter("access_token", context.Token.access_token, RestSharp.ParameterType.QueryString);
-            request.AddParameter("group_id", groupId, RestSharp.ParameterType.QueryString);
-            request.AddParameter("topic_title", topicTitle, RestSharp.ParameterType.QueryString);
-            request.AddParameter("topic_content", topicContent, RestSharp.ParameterType.QueryString);
+            request.AddParameter("access_token", context.Token.access_token);
+            request.AddParameter("group_id", groupId);
+            request.AddParameter("topic_title", topicTitle);
+            request.AddParameter("topic_content", topicContent);
 
             var response = restClient.Execute(request);
 
@@ -351,13 +351,13 @@ namespace YbSDK.Api
                 throw new YbException("评论内容最多140字数");
             }
             var request = CreateRequest(RestSharp.Method.POST, "group/send_comment");
-            request.AddParameter("access_token", context.Token.access_token, RestSharp.ParameterType.QueryString);
-            request.AddParameter("group_id", groupId, RestSharp.ParameterType.QueryString);
-            request.AddParameter("topic_id", topId, RestSharp.ParameterType.QueryString);
-            request.AddParameter("comment_content", commentContent, RestSharp.ParameterType.QueryString);
+            request.AddParameter("access_token", context.Token.access_token);
+            request.AddParameter("group_id", groupId);
+            request.AddParameter("topic_id", topId);
+            request.AddParameter("comment_content", commentContent);
             if (comment_id != -1)
             {
-                request.AddParameter("comment_id", comment_id, RestSharp.ParameterType.QueryString);
+                request.AddParameter("comment_id", comment_id);
             }
             var response = restClient.Execute(request);
             if (CheckError(response))

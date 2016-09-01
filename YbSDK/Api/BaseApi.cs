@@ -23,7 +23,7 @@ namespace YbSDK.Api
         private System.Web.Script.Serialization.JavaScriptSerializer jss = new System.Web.Script.Serialization.JavaScriptSerializer();
 
         #region 构造函数,抽象类的构造函数,子类实现
-        public BaseApi(string token,YbConfig config)
+        public BaseApi(string token, YbConfig config)
         {
             this.context = new ApiContext(token, config);
         }
@@ -90,7 +90,7 @@ namespace YbSDK.Api
         {
             return jss.Deserialize<T>(content);
             //return RestResponse
-          
+
         }
 
         /// <summary>
@@ -99,11 +99,11 @@ namespace YbSDK.Api
         /// <param name="response">请求响应类</param>
         protected YbException GenerateError(IRestResponse response)
         {
-            ErrorInfo errorInfo = new ErrorInfo();
+            ErrorInfo errorInfo = null;
             errorInfo = Deserialize<ErrorInfo>(response.Content);
-            return new YbException(errorInfo, errorInfo.info.msgCN);
+            return new YbException(errorInfo, string.Format("MsgFromYiBan:{0},ErrorCode:{1}", errorInfo.info.msgCN, errorInfo.info.code));
         }
 
-        
+
     }
 }

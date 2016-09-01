@@ -16,7 +16,7 @@ namespace YbSDK.Api.Tests
         public void Init()
         {
   
-            api = new UserApi(GlobalConfig.accessToken);
+            api = new UserApi(GlobalConfig.accessToken, GlobalConfig.Webconfig);
         }
         [TestMethod()]
         public void GetMeTest()
@@ -27,13 +27,6 @@ namespace YbSDK.Api.Tests
             //Assert.Fail();
         }
 
-        [ExpectedException(typeof(YbException))]
-        [TestMethod]
-        public void GetMeErrorTest()
-        {
-            //api.context.Token.access_token = "1";
-            var me = api.GetMe();
-        }
 
         [TestMethod()]
         public void GetOtherTest()

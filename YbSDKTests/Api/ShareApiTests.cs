@@ -16,13 +16,12 @@ namespace YbSDK.Api.Tests
         public void Init()
         {
             //string token = "e8bfb22a15f055e26afb75629ee42017ea48de54";
-            api = new ShareApi(GlobalConfig.accessToken);
-            uapi = new UserApi(GlobalConfig.accessToken);
+            api = new ShareApi(GlobalConfig.accessToken, GlobalConfig.Webconfig);
+            uapi = new UserApi(GlobalConfig.accessToken, GlobalConfig.Webconfig);
         }
         [TestMethod()]
         public void GetShareInfoTest()
         {
-
             var result = api.GetShareInfo(GlobalConfig.feedId);
             Assert.AreEqual("success", result.status);
         }
@@ -33,6 +32,14 @@ namespace YbSDK.Api.Tests
         {
             var uId = uapi.GetMe().info.yb_userid;
             var result = api.GetOtherShare(uId);
+            if (result.info.list!=null)
+            {
+                foreach (var item in result.info.list)
+                {
+                    Console.WriteLine(item.yb_feedid+":"+item.yb_content);
+                }
+            }
+            
             Assert.AreEqual("success", result.status);
         }
 
