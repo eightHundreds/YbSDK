@@ -12,9 +12,9 @@ namespace YbSDK.Api.Tests
     public class GlobalConfig
     {
 
-        public static string accessToken = "863048aa592732e19cceb9752fb7a3031814ab0e";
+        public static string accessToken = "2a67a2378d8462101ebb92c698af2b19fb40acbc";
         public static string code = "f8897c49030e2fed253fd36229daaae1a1390569";
-        public static string verify_request = "94f0228da9e0f017b205c682c36ca2f91110e71802d2d3c06b091a92ecb25ee71071de4aba49a080e8a748cab6e6187f5f3bb38de7a417746ea4b141bbb239849a761a31f2dd1ca9646c764d5fc269f894d594aeb3527ba4075c64be74deb3e66d30d343b257e50e1f3bc7509cb0619df9c43d34ef1e4da69408efb68c1a9932d7c0d1077650e259d5db3d4861a982d6b100fb7d6ada3d9e9076f376928b95d3a46bc9e655e9c35417c67153cbca7b627cb07348f6cadf42f5c7b1e74c40d6e1134e505ab827f37b5ab870086b277ab2d7f346e836e8d2c70df0862c3691b45693aebf1774ae72c6b1f06307427038f4";
+        public static string verify_request = "82067ef8e54f9fdddfa4bdf94e5a5986e1c39c928cbde45122136215602763dcfd0915186b79b73e2b8a6683fd3d1e743557263061e584afea97ea6f9d9bb84d41567e1a0f124967edd68f99ab7caad3f345c2036c3ca5e74176b7ac9f512f0fe18dbc98955301dd5ec7ca30ef63a63b5f8fb59c871b85ff4e64ebbe7a2dfcfe26e7212dfa9a1aea158cdae9be7d2aaeb556e221b8cbdf04a9d7775d3906e4ffbdefc903f4af254536783dbc8bb1a37fc368fbb991943c9455b64d07ff0b53317eaab563260a7f8bd36148c8d6aa60db3b82e335bd3e22eddba4f46d1784697fd2b343bee714922f27ecd2a7fe15d887";
         public static string feedId = ".";
         public static int groupId = 338571;
         public static int groupTopicId = 14919307;

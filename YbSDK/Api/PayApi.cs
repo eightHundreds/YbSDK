@@ -1,4 +1,8 @@
-﻿using YbSDK.Config;
+﻿using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using YbSDK.Config;
 using YbSDK.Model;
 
 namespace YbSDK.Api
@@ -45,6 +49,27 @@ namespace YbSDK.Api
             }
             //如果返回结果包括"info":true则代表执行成功
             return response.Content.ToLower().Contains("\"info\":true");
+        }
+
+
+        public TradeWangXinResult TradeWangXin(int paycount,string signBack,string userId=null)
+        {
+            var request = CreateRequest(RestSharp.Method.GET, "pay/trade_wx");
+            request.AddParameter("access_token", context.Token.access_token);
+            request.AddParameter("pay", paycount);
+            request.AddParameter("sign_back", signBack);
+            if (!string.IsNullOrWhiteSpace(userId))
+            {
+                request.AddParameter("yb_userid", userId);
+            }
+          
+            var response = restClient.Execute(request);
+            if (CheckError(response))
+            {
+                throw GenerateError(response);
+            }
+            var result = Deserialize<TradeWangXinResult>(response.Content);
+            return result;
         }
     }
 }

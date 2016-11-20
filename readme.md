@@ -4,6 +4,7 @@
 该SDK要求.Net 4.0以上
 依赖第三方库:RestSharp, Version=105.2.3.0
 IIS要求多少?我也不知道,有装.Net 4.0的应该都能用
+为了让更多应用使用该SDK,我使用版本较低的.Net 4.0,所以不能使用C#5.0的await async特性来编写异步方法.
 
 
 
@@ -177,7 +178,8 @@ protected void Page_Load(object sender, EventArgs e)
   VisitOauth oauth=ybOauth.CheckAuthor(verify);
   
   if(oauth.IsAuthorized==true){
-     //该用户以授权该应用
+     //该用户已授权该应用
+     //oauth中已经有了access_token
      //do someting
   }
 }
@@ -318,6 +320,30 @@ group/group_member接口返回的是上面这种json,当list为空的时候返�
 
 
 
+# 更新
+相比上个版本
+
+**新增**
+
+- 支持一个网站在易班中有不同应用形态
+- 新增user/is_verify接口
+- 新增user/check_verify接口,本校往易班导入的数据有误,故该接口我未测试成功
+- 增加网薪酬支付,但支付后的校验并为完成,官方用的解密函数我并未调出来,但不影响使用
+
+
+
+
+**优化**
+
+- 修改异常的错误信息,直接把返回的错误信息写入异常,在异常抛出时能直接看到原因
+- 本次更新,本人获得了校级应用权限,因此上版因为权限问题而未测试的接口,现大部分已经通过测试
+- 修复了大部分Post请求的Bug,当时开发时候就用了错误的写法,当时易班并不严格没有报错,近期才发现.
+
+
+**待完成**
+
+- [] 知识库api
+
 # 后记
 
 本SDK由 中国矿业大学<font color='#5BCE33'>学生在线</font>后端组八百 设计开发.
@@ -326,7 +352,4 @@ group/group_member接口返回的是上面这种json,当list为空的时候返�
 [学生在线](http://online.cumt.edu.cn)
 ![Alt text](http://online.cumt.edu.cn/flyingstudio2014/Content/images/logo.png)
 在线为学生
-
-
-
 

@@ -59,10 +59,9 @@ namespace YbSDK.Api
             response = restClient.Execute(request);
             var result = Deserialize<AccessToken>(response.Content);
 
-            //如果没有access_token就代表返回了错误
-            if (result.access_token == null)
+            if (base.CheckError(response))
             {
-                throw GenerateOAuthError(response);
+                throw base.GenerateError(response);
             }
             return result;
         }
@@ -115,8 +114,7 @@ namespace YbSDK.Api
             response = restClient.Execute(request);
             var result = Deserialize<TokenInfo>(response.Content);
 
-            //如果没有access_token就代表返回了错误
-            if (result.access_token == null)
+            if (base.CheckError(response))
             {
                 throw base.GenerateError(response);
             }
@@ -142,7 +140,7 @@ namespace YbSDK.Api
         }
 
         /// <summary>
-        /// 检测来访用户是否已授权(该方法仅用于站内应用或轻应用)
+        /// 检测来访用户是否已授权(该api不在官方授权接口文档中,仅用于站内应用或轻应用)
         /// </summary>
         /// <param name="verifyRequest">从请求中获得的verify_request,是易班发送给当前应用的授权信息(该信息使用AES加密)</param>
         /// <returns></returns>

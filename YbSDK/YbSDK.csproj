@@ -62,6 +62,7 @@
     <Compile Include="Model\FriendModels.cs" />
     <Compile Include="Model\GroupModels.cs" />
     <Compile Include="Model\OAuthModels.cs" />
+    <Compile Include="Model\PayModels.cs" />
     <Compile Include="Model\SchoolModels.cs" />
     <Compile Include="Model\ShareModels.cs" />
     <Compile Include="Model\UserModel.cs" />

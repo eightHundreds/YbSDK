@@ -104,6 +104,13 @@ namespace YbSDK.Api
             return new YbException(errorInfo, string.Format("MsgFromYiBan:{0},ErrorCode:{1}", errorInfo.info.msgCN, errorInfo.info.code));
         }
 
+        protected string GetErrorInfo(IRestResponse response)
+        {
+            ErrorInfo errorInfo = null;
+            errorInfo = Deserialize<ErrorInfo>(response.Content);
+            return errorInfo.info.msgCN;
+        }
+
 
     }
 }

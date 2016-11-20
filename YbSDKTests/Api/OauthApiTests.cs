@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using YbSDK.Exceptions;
 using System.Diagnostics;
 using System;
+using Shouldly;
 
 namespace YbSDK.Api.Tests
 {
@@ -38,13 +39,27 @@ namespace YbSDK.Api.Tests
         {
             OauthApi api = new OauthApi(GlobalConfig.LightConfig);
             var result = api.CheckAuthor(GlobalConfig.verify_request);
-            Console.WriteLine(result.IsAuthorized) ;
-            Console.WriteLine(result.visit_oauth);
+            Console.WriteLine(result.IsAuthorized);
+            Console.WriteLine(result.visit_oauth.access_token);
             Console.WriteLine(result.visit_time);
-            Console.WriteLine(result.visit_user);
+            Console.WriteLine(result.visit_user.userid);
             Assert.AreEqual(true, result.IsAuthorized);
         }
 
-      
+        [TestMethod()]
+        public void RevokeTokenTest()
+        {
+
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void GetTokenInfoTest()
+        {
+            var result=api.GetTokenInfo(GlobalConfig.accessToken);
+            result.status.ShouldBe("200");
+            Console.WriteLine(result.expire_in);
+
+        }
     }
 }
